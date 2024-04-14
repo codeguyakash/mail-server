@@ -1,11 +1,12 @@
-import { SMTPServer } from "smtp-server";
+const { SMTPServer } = require("smtp-server");
 
 const server = new SMTPServer({
   allowInsecureAuth: true,
   authOptional: true,
   onConnect: (session, cb) => {
     console.log(`connected ${session.id}`);
-    cb();
+    cb(); // for accept
+    // cb(new Error("reject")); // for reject
   },
   onMailFrom: (address, session, cb) => {
     console.log(`mailfrom ${address.address} ${session.id}`);
